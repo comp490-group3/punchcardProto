@@ -63,7 +63,7 @@
 }
 
 - (void)queryPunchDatabase {
-    
+    _query = [PFQuery queryWithClassName:@"Business"];
     [_query getObjectInBackgroundWithId:_scannedQRstring block:^(PFObject *business, NSError *error){
         [_businessLabel setText:business[@"businessName"]];
         [_descriptionTextView setText:business[@"rewardDescription"]];
@@ -71,6 +71,7 @@
         [_descriptionTextView setTextAlignment:NSTextAlignmentCenter];
         [_punchTotalLabel setText:@"3/10"];
         [_punchProgressBar setProgress: .33];
+        
     }];
     
 
