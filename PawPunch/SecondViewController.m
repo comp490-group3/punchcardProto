@@ -69,8 +69,10 @@
         [_descriptionTextView setText:business[@"rewardDescription"]];
         [_descriptionTextView setTextColor:[UIColor orangeColor]];
         [_descriptionTextView setTextAlignment:NSTextAlignmentCenter];
-        [_punchTotalLabel setText:@"3/10"];
-        [_punchProgressBar setProgress: .33];
+        //Progress Bar populated with mock data
+        NSString *punchTemp = [NSString stringWithFormat:(@"%@/%@"), @3, business[@"punchesRequired"]];
+        [_punchTotalLabel setText:punchTemp];
+        [_punchProgressBar setProgress: .4 animated:YES];
         
     }];
     

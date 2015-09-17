@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PawPunch/SecondViewController.m"
-            timestampString = "464208773.311836"
+            timestampString = "464211469.945144"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "-queryPunchDatabase"
             landmarkType = "5">
          </BreakpointContent>
