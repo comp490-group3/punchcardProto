@@ -46,7 +46,8 @@
     if(metadataObjects != nil && [metadataObjects count] > 0){
         AVMetadataMachineReadableCodeObject *metadataObj = [metadataObjects objectAtIndex: 0];
         if([[metadataObj type] isEqualToString:AVMetadataObjectTypeQRCode]){
-            [_labelStatus performSelectorOnMainThread:@selector(setText:) withObject:[metadataObj stringValue] waitUntilDone:NO];
+            [_labelStatus performSelectorOnMainThread:@selector(setText:) withObject:@"You've punched at..." waitUntilDone:NO];
+            
             NSLog(@"%@", [metadataObj stringValue]);
             _scannedQRstring = [metadataObj stringValue];
             [self performSelectorOnMainThread:@selector(stopReading) withObject:nil waitUntilDone:NO];
@@ -136,7 +137,7 @@
     if(!_isReading)
     {
         if([self startReading])
-            [_startButton setTitle:@"Stop" forState:UIControlStateNormal];
+            [_startButton setTitle:@"Punch again!" forState:UIControlStateNormal];
         [_labelStatus setText:@"Scanning for QR Code..."];
         
     }
