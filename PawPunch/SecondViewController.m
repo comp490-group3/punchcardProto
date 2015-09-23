@@ -70,7 +70,7 @@
         [_descriptionTextView setTextColor:[UIColor orangeColor]];
         [_descriptionTextView setTextAlignment:NSTextAlignmentCenter];
         //Progress Bar populated with mock data
-        NSString *punchTemp = [NSString stringWithFormat:(@"%@/%@"), @3, business[@"punchesRequired"]];
+        NSString *punchTemp = [NSString stringWithFormat:(@"%@/%@"), business[@"punchesEarned"], business[@"punchesRequired"]];
         [_punchTotalLabel setText:punchTemp];
         [_punchProgressBar setProgress: .4 animated:YES];
         

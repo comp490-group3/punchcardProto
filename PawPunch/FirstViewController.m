@@ -7,6 +7,9 @@
 //
 
 #import "FirstViewController.h"
+#import "AppDelegate.h"
+#import "PHBusiness.h"
+#import <Parse/Parse.h>
 
 @interface FirstViewController ()
 

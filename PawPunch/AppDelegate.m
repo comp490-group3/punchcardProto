@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "PHBusiness.h"
 #import <Parse/Parse.h>
 
 @interface AppDelegate ()
@@ -23,6 +24,29 @@
     
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    PFQuery *businessQuery = [PFQuery queryWithClassName:@"Business"];
+    NSArray *busData = [businessQuery findObjects];
+    
+    _myPlaces = [[NSMutableArray alloc] initWithCapacity:[busData count]];
+    
+    for(PFObject *temp in busData)
+    {
+        PHBusiness *next = [[PHBusiness alloc]init];
+        next.objID = temp.objectId;
+        next.name = temp[@"businessName"];
+        next.rewardDescription = temp[@"rewardDescription"];
+        next.punchesReq = temp[@"punchesRequired"];
+        next.punchesEarned = temp[@"punchesEarned"];
+        next.prevCustomer = (BOOL) temp[@"prevCustomer"];
+        next.address = temp[@"Address"];
+        
+        NSLog(@"%@",next.name);
+        [_myPlaces addObject:next];
+        
+    }
+    NSLog(@"Done Querying");
+    
     
     return YES;
 }
