@@ -7,6 +7,7 @@
 //
 
 #import "PunchListController.h"
+#import "PunchDetailView.h"
 #import "AppDelegate.h"
 #import "PHBusiness.h"
 #import "punchCell.h"
@@ -17,6 +18,7 @@
 
 @property (nonatomic, weak) AppDelegate *delegate;
 @property (nonatomic, strong) NSArray *PHPlaces;
+@property PHBusiness *selectedPlace;
 
 @end
 
@@ -57,16 +59,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     punchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"punchCell" forIndexPath:indexPath];
-    PHBusiness *temp = [_PHPlaces objectAtIndex:indexPath.row];
+    _selectedPlace = [_PHPlaces objectAtIndex:indexPath.row];
+    
     // Configure the cell...
-    cell.businessName.text = temp.name;
-    cell.address.text = temp.address;
+    cell.businessName.text = _selectedPlace.name;
+    cell.address.text = _selectedPlace.address;
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -105,14 +107,18 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+/* In a storyboard-based application, you will often want to do a little preparation before navigation */
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    PunchDetailView *detailView = [segue destinationViewController];
+    NSIndexPath *selectedPath = self.tableView.indexPathForSelectedRow;
+    _selectedPlace = [_PHPlaces objectAtIndex:selectedPath.row];
+    detailView.selectedPlace = _selectedPlace;
 }
-*/
+
 
 @end

@@ -10,6 +10,7 @@
 		8663104A1BB1C06B00827DFE /* PunchListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 866310491BB1C06B00827DFE /* PunchListController.m */; settings = {ASSET_TAGS = (); }; };
 		8663104D1BB1C30B00827DFE /* PHBusiness.m in Sources */ = {isa = PBXBuildFile; fileRef = 8663104C1BB1C30B00827DFE /* PHBusiness.m */; settings = {ASSET_TAGS = (); }; };
 		866310501BB1CB5300827DFE /* punchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8663104F1BB1CB5300827DFE /* punchCell.m */; settings = {ASSET_TAGS = (); }; };
+		866310531BB378AF00827DFE /* PunchDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 866310521BB378AF00827DFE /* PunchDetailView.m */; settings = {ASSET_TAGS = (); }; };
 		867768D01BAABA53003F7556 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 867768CE1BAABA53003F7556 /* Bolts.framework */; settings = {ASSET_TAGS = (); }; };
 		867768D11BAABA53003F7556 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 867768CF1BAABA53003F7556 /* Parse.framework */; settings = {ASSET_TAGS = (); }; };
 		867768D31BAABD1D003F7556 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 867768D21BAABD1D003F7556 /* libsqlite3.tbd */; };
@@ -50,6 +51,8 @@
 		8663104C1BB1C30B00827DFE /* PHBusiness.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHBusiness.m; sourceTree = "<group>"; };
 		8663104E1BB1CB5300827DFE /* punchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = punchCell.h; sourceTree = "<group>"; };
 		8663104F1BB1CB5300827DFE /* punchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = punchCell.m; sourceTree = "<group>"; };
+		866310511BB378AF00827DFE /* PunchDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunchDetailView.h; sourceTree = "<group>"; };
+		866310521BB378AF00827DFE /* PunchDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PunchDetailView.m; sourceTree = "<group>"; };
 		867768CE1BAABA53003F7556 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		867768CF1BAABA53003F7556 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		867768D21BAABD1D003F7556 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -145,6 +148,8 @@
 				8663104F1BB1CB5300827DFE /* punchCell.m */,
 				866310481BB1C06B00827DFE /* PunchListController.h */,
 				866310491BB1C06B00827DFE /* PunchListController.m */,
+				866310511BB378AF00827DFE /* PunchDetailView.h */,
+				866310521BB378AF00827DFE /* PunchDetailView.m */,
 				86EEF24D1BA8B6CA00F0ADDF /* Main.storyboard */,
 				86EEF2501BA8B6CA00F0ADDF /* Images.xcassets */,
 				86EEF2521BA8B6CA00F0ADDF /* LaunchScreen.xib */,
@@ -292,6 +297,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				866310531BB378AF00827DFE /* PunchDetailView.m in Sources */,
 				866310501BB1CB5300827DFE /* punchCell.m in Sources */,
 				86EEF24C1BA8B6CA00F0ADDF /* SecondViewController.m in Sources */,
 				86EEF2461BA8B6CA00F0ADDF /* AppDelegate.m in Sources */,

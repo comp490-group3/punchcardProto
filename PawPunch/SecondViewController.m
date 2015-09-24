@@ -45,6 +45,8 @@
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
     if(metadataObjects != nil && [metadataObjects count] > 0){
         AVMetadataMachineReadableCodeObject *metadataObj = [metadataObjects objectAtIndex: 0];
+        
+        //If QR Code is Scanned
         if([[metadataObj type] isEqualToString:AVMetadataObjectTypeQRCode]){
             [_labelStatus performSelectorOnMainThread:@selector(setText:) withObject:@"You've punched at..." waitUntilDone:NO];
             
@@ -66,6 +68,9 @@
 - (void)queryPunchDatabase {
     _query = [PFQuery queryWithClassName:@"Business"];
     [_query getObjectInBackgroundWithId:_scannedQRstring block:^(PFObject *business, NSError *error){
+        //check punches earned vs required, increment as necessary
+        
+        
         [_businessLabel setText:business[@"businessName"]];
         [_descriptionTextView setText:business[@"rewardDescription"]];
         [_descriptionTextView setTextColor:[UIColor orangeColor]];
