@@ -39,6 +39,16 @@
         _redeemBackground.backgroundColor = [UIColor greenColor];
         [_redeemButton setEnabled:YES];
     }
+    if(_selectedPlace.redeemed)
+    {
+        [_redeemBackground setBackgroundColor:[UIColor greenColor]];
+        _redeemFlagLabel.hidden = NO;
+        _redeemButton.alpha = 0.4;
+        _redeemBackground.alpha = 0.35;
+        
+    }else {
+        _redeemFlagLabel.hidden = YES;
+    }
 }
 
 - (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -61,6 +71,8 @@
         _punchProgress.progressTintColor = [UIColor orangeColor];
         _redeemButton.alpha = 0.4;
         _redeemBackground.alpha = 0.35;
+        _redeemFlagLabel.hidden = NO;
+        
         
     }
 }

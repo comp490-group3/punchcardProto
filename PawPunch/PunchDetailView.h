@@ -22,6 +22,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *redeemButton;
 @property (weak, nonatomic) IBOutlet UITextField *redeemBackground;
+@property (weak, nonatomic) IBOutlet UILabel *redeemFlagLabel;
 
 @property PHBusiness *selectedPlace;
 
