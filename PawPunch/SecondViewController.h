@@ -10,7 +10,10 @@
 #import <AVFoundation/AVFoundation.h>
 #import <Parse/Parse.h>
 
-@interface SecondViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate>
+@interface SecondViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate, NSURLConnectionDelegate, UIAlertViewDelegate>
+{
+    NSMutableData *responseData;
+}
 //QR Reader Properties
 @property (weak, nonatomic) IBOutlet UIView *viewPreview;
 @property (weak, nonatomic) IBOutlet UILabel *labelStatus;

@@ -8,14 +8,16 @@
 
 #import "SecondViewController.h"
 
-@interface SecondViewController ()
+@interface SecondViewController () 
 
 @property(nonatomic)BOOL isReading;
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *videoPreviewLayer;
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @property NSString *scannedQRstring;
+@property NSString *offerID;
 
+//@property (nonatomic, strong) NSMutableData *responseData;
 @property PFQuery *query;
 
 -(void)loadBeepSound;
@@ -26,12 +28,14 @@
 
 @implementation SecondViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     _isReading = NO;
     _captureSession = nil;
     _scannedQRstring = nil;
+    responseData = [NSMutableData data];
     [self loadBeepSound];
     _query = [PFQuery queryWithClassName:@"Business"];
     
@@ -56,7 +60,8 @@
             [_startButton performSelectorOnMainThread:@selector(setTitle:) withObject:@"Punch" waitUntilDone:NO];
             _isReading = NO;
             
-            [self performSelectorInBackground:@selector(queryPunchDatabase) withObject:nil];
+            [self queryPunchDatabase];
+            //[self performSelectorInBackground:@selector(queryPunchDatabase) withObject:nil];
             
             if(_audioPlayer){
                 [_audioPlayer play];
@@ -66,24 +71,106 @@
 }
 
 - (void)queryPunchDatabase {
-    _query = [PFQuery queryWithClassName:@"Business"];
-    [_query getObjectInBackgroundWithId:_scannedQRstring block:^(PFObject *business, NSError *error){
-        //check punches earned vs required, increment as necessary
+    
+    NSString *qrValidationID;
+    NSString *businessPunchID;
+    if(_scannedQRstring.length < 7)
+    {
+        qrValidationID = @"badData";
+    } else {
+    businessPunchID = [_scannedQRstring substringFromIndex:7];
+    qrValidationID = [_scannedQRstring substringToIndex:6];
+    NSLog(@"%@", qrValidationID);
+    NSLog(@"Scanned QR id: %@", businessPunchID);
+    }
+    NSString *punchURLstring = [NSString stringWithFormat:@"http://punchd.herokuapp.com/businesses/%@/punch/", businessPunchID];
+    NSURL *punchURL = [NSURL URLWithString:punchURLstring];
+  
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:punchURL];
+    [request setHTTPMethod:@"GET"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+    
+        NSLog(@"Received punch data???");
+        NSError *error;
+        NSDictionary *jsonPunch = [NSJSONSerialization
+                                   JSONObjectWithData:data
+                                   options:kNilOptions
+                                   error:&error];
+        NSDictionary *jsonBusiness = jsonPunch[@"business"];
+        BOOL canRedeem = [jsonPunch[@"can_redeem"] boolValue];
+        _offerID = jsonPunch[@"id"];
         
+        if(![qrValidationID  isEqual:@"punchd"]){
+            
+            NSLog(@"punch not from database");
+            UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Huh??"
+                                                                  message:@"Sorry Chief, but this doesn't look like a participating Punch'd business" delegate:self
+                                                        cancelButtonTitle:@"Oops..." otherButtonTitles:nil, nil];
+            [errorAlert show];
         
-        [_businessLabel setText:business[@"businessName"]];
-        [_descriptionTextView setText:business[@"rewardDescription"]];
-        [_descriptionTextView setTextColor:[UIColor orangeColor]];
-        [_descriptionTextView setTextAlignment:NSTextAlignmentCenter];
-        //Progress Bar populated with mock data
-        NSString *punchTemp = [NSString stringWithFormat:(@"%@/%@"), business[@"punchesEarned"], business[@"punchesRequired"]];
-        [_punchTotalLabel setText:punchTemp];
-        [_punchProgressBar setProgress: .4 animated:YES];
+        } else if(jsonPunch[@"status"])
+        {
+            NSLog(@"exceeded punches required");
+            UIAlertView *redeemAlert = [[UIAlertView alloc] initWithTitle:@"Excuse Us..."
+                                                                  message:@"Looks like you've already completed the amount of punches for this offer! Check My Places to see if you've redeemed this offer." delegate:self
+                                                        cancelButtonTitle:@"Got it" otherButtonTitles:nil, nil];
+            [redeemAlert show];
+            
+        }else{
+        
+            [_businessLabel setText:jsonBusiness[@"name"]];
+            [_descriptionTextView setText:jsonPunch[@"name"]];
+            [_descriptionTextView setTextColor:[UIColor orangeColor]];
+            [_descriptionTextView setTextAlignment:NSTextAlignmentCenter];
+            NSString *punchTemp = [NSString stringWithFormat:(@"%@/%@"), jsonPunch[@"punch_total"], jsonPunch[@"punch_total_required"]];
+            [_punchTotalLabel setText:punchTemp];
+            float punchTotal = [jsonPunch[@"punch_total"] floatValue];
+            float punchReq = [jsonPunch[@"punch_total_required"] floatValue];
+            float c = punchTotal/punchReq;
+            [_punchProgressBar setProgressTintColor:[UIColor orangeColor]];
+            [_punchProgressBar setProgress:c animated:YES];
+            if(canRedeem)
+            {
+                [_punchProgressBar setProgressTintColor:[UIColor greenColor]];
+                UIAlertView *redeemAlert = [[UIAlertView alloc]initWithTitle:@"Congratulations!"
+                                                                     message:[NSString stringWithFormat:(@"You've reached %@ punches at %@! Would you like to redeem your offer now?"), jsonBusiness[@"name"], _businessLabel.text]
+                                                                    delegate:self
+                                                           cancelButtonTitle:@"Maybe Later"
+                                                           otherButtonTitles:@"Redeem!", nil];
+                
+                [redeemAlert show];
+                
+            }
+            
+        }
         
     }];
     
-
+    NSLog(@"Success: ");
+  
 }
+
+- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if(buttonIndex == [alertView cancelButtonIndex]){
+        //cancel pressed
+        NSLog(@"redeem later");
+    }else{
+        //redeem now pressed
+        NSLog(@"attempting to redeem");
+        
+        NSString *redeemURLstring = [NSString stringWithFormat:@"http://punchd.herokuapp.com/offers/%@/redeem/", _offerID];
+        NSURL *redeemURL = [NSURL URLWithString:redeemURLstring];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:redeemURL];
+        [request setHTTPMethod:@"GET"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    }
+}
+
 
 - (BOOL)startReading {
     NSError *error;

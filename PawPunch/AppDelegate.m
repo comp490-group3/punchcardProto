@@ -19,6 +19,50 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+ // ============================ HEROKU IMPLEMENTATION =========================== //
+    NSString *offersListURL = [NSString stringWithFormat:@"http://punchd.herokuapp.com/offers/"];
+    
+    NSData *offersListData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:offersListURL]];
+    
+    NSError *error;
+    NSArray *jsonOffersList = [NSJSONSerialization
+                               JSONObjectWithData:offersListData
+                               options:kNilOptions
+                               error:&error];
+    _myPlaces = [[NSMutableArray alloc] initWithCapacity:[jsonOffersList count]];
+    NSLog(@"Number of user's offers: %lu", [jsonOffersList count]);
+    
+    if(error)
+    {
+        NSLog(@"%@", [error localizedDescription]);
+    }
+    else{
+        for(NSDictionary *offer in jsonOffersList)
+        {
+            PHBusiness *next = [[PHBusiness alloc]init];
+            next.offerID = offer[@"id"];
+            next.rewardDescription = offer[@"name"];
+            NSDictionary *business = offer[@"business"];
+            next.businessID = business[@"id"];
+            next.name = business[@"name"];
+            next.address = business[@"address"];
+            next.punchesEarned = offer[@"punch_total"];
+            next.punchesReq = offer[@"punch_total_required"];
+            next.canRedeem = [offer[@"can_redeem"] boolValue];
+            next.redeemed = [offer[@"redeemed"] boolValue];
+            
+            NSLog(@"%@", next.name);
+            [_myPlaces addObject:next];
+        }
+    
+    }
+    NSLog(@"Done Querying");
+    
+    
+    
+ // ========================== END HEROKU IMPLEMENTATION ========================= //
+ // ============================ PARSE IMPLEMENTATION ============================ //
+ /*
     [Parse setApplicationId:@"Qxi7pgAFaysRDr9Hr9w3lHob18hvYVlRQfLoJ6bn"
                   clientKey:@"vU0EyATtNS7dFzbnlpsPiXyNHMZMPoXyTySOmAa1"];
     
@@ -48,6 +92,9 @@
     NSLog(@"Done Querying");
     
     
+    return YES;
+ */
+ // ========================== END PARSE IMPLEMENTATION ========================== //
     return YES;
 }
 

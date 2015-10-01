@@ -71,27 +71,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RBb-qf-ifW">
-                                <rect key="frame" x="139" y="506" width="97" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" button="YES" notEnabled="YES"/>
-                                </accessibility>
-                                <attributedString key="attributedText">
-                                    <fragment content="Redeem">
-                                        <attributes>
-                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <font key="NSFont" size="11" name="Helvetica-LightOblique"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="redeemButton:" destination="h1b-Iw-Ux4" eventType="touchUpInside" id="t5J-my-lld"/>
-                                </connections>
-                            </textField>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progressViewStyle="bar" progress="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="0ZB-d3-lTJ">
                                 <rect key="frame" x="73" y="459" width="229" height="3"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -148,8 +127,9 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Northridge, CA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4eh-rR-EuX">
                                 <rect key="frame" x="20" y="125" width="177" height="21"/>
+                                <color key="tintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reward Description" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="50p-0i-sF4">
@@ -170,12 +150,41 @@
                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Description of this establishment's loyalty program reward(s). Ex. Free drink with every 5 burgers purchased!" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Tyt-fk-SaW">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tyt-fk-SaW">
                                 <rect key="frame" x="51" y="211" width="274" height="128"/>
-                                <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Description of this establishment's loyalty program reward(s). Ex. Free drink with every 5 burgers purchased!">
+                                        <attributes>
+                                            <color key="NSColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.40000000000000002" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RBb-qf-ifW">
+                                <rect key="frame" x="129" y="495" width="116" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" button="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <attributedString key="attributedText"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="redeemButton:" destination="h1b-Iw-Ux4" eventType="touchUpInside" id="t5J-my-lld"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Im-8N-OHZ">
+                                <rect key="frame" x="142" y="495" width="90" height="30"/>
+                                <state key="normal" title="Redeem">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="redeemButton:" destination="h1b-Iw-Ux4" eventType="touchUpInside" id="uP8-eC-LUn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                     </view>
@@ -186,6 +195,8 @@
                         <outlet property="earnedPunches" destination="9yb-D3-AXN" id="Xxr-nK-XxT"/>
                         <outlet property="nameLabel" destination="I3f-LE-hCC" id="E4C-cQ-FCm"/>
                         <outlet property="punchProgress" destination="0ZB-d3-lTJ" id="bWi-HX-Lbi"/>
+                        <outlet property="redeemBackground" destination="RBb-qf-ifW" id="nrz-kc-7rV"/>
+                        <outlet property="redeemButton" destination="8Im-8N-OHZ" id="zC3-lj-lbz"/>
                         <outlet property="requiredPunches" destination="ekr-jU-kQ1" id="fum-0D-4lu"/>
                         <outlet property="rewardDescription" destination="Tyt-fk-SaW" id="m7H-Qw-U17"/>
                     </connections>

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PHBusiness.h"
 
-@interface PunchDetailView : UIViewController
+@interface PunchDetailView : UIViewController <UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
@@ -17,7 +17,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *earnedPunches;
 @property (weak, nonatomic) IBOutlet UILabel *requiredPunches;
 @property (weak, nonatomic) IBOutlet UIProgressView *punchProgress;
+
 - (IBAction)redeemButton:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UIButton *redeemButton;
+@property (weak, nonatomic) IBOutlet UITextField *redeemBackground;
 
 @property PHBusiness *selectedPlace;
 

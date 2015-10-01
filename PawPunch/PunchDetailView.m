@@ -27,10 +27,42 @@
     float b = [_selectedPlace.punchesReq floatValue];
     float c = a/b;
     _punchProgress.progress = c;
-    NSLog(@"Made it");
-    
+    NSLog(@"%d", _selectedPlace.redeemed);
+     
     //check punches earned vs. punches required, modify REDEEM action as necessary
+    if(_selectedPlace.canRedeem)
+    {
+        NSLog(@"Inside If");
+        _punchProgress.progressTintColor = [UIColor greenColor];
+        _redeemButton.alpha = 1;
+        _redeemBackground.alpha = 1;
+        _redeemBackground.backgroundColor = [UIColor greenColor];
+        [_redeemButton setEnabled:YES];
+    }
+}
+
+- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
+    if(buttonIndex == [alertView cancelButtonIndex]){
+        //cancel pressed
+        NSLog(@"redeem later");
+    }else{
+        //redeem now pressed
+        NSLog(@"attempting to redeem");
+        
+        NSString *redeemURLstring = [NSString stringWithFormat:@"http://punchd.herokuapp.com/offers/%@/redeem/", _selectedPlace.offerID];
+        NSURL *redeemURL = [NSURL URLWithString:redeemURLstring];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:redeemURL];
+        [request setHTTPMethod:@"GET"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+        [_redeemButton setEnabled:NO];
+        _punchProgress.progressTintColor = [UIColor orangeColor];
+        _redeemButton.alpha = 0.4;
+        _redeemBackground.alpha = 0.35;
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,5 +82,14 @@
 
 - (IBAction)redeemButton:(id)sender {
     NSLog(@"button was touched");
+    UIAlertView *redeemAlert = [[UIAlertView alloc]initWithTitle:@"Congratulations!"
+                                                         message:[NSString stringWithFormat:(@"You've reached %@ punches at %@! Would you like to redeem your offer now?"), _selectedPlace.punchesReq, _selectedPlace.name]
+                                                        delegate:self
+                                               cancelButtonTitle:@"Maybe Later"
+                                               otherButtonTitles:@"Redeem!", nil];
+    
+    [redeemAlert show];
+
 }
+
 @end

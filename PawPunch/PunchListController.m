@@ -17,7 +17,7 @@
 @interface PunchListController ()
 
 @property (nonatomic, weak) AppDelegate *delegate;
-@property (nonatomic, strong) NSArray *PHPlaces;
+@property (nonatomic, strong) NSMutableArray *PHPlaces;
 @property PHBusiness *selectedPlace;
 
 @end
@@ -36,11 +36,62 @@
     self.delegate = (AppDelegate*) [UIApplication sharedApplication].delegate;
     _PHPlaces = [self.delegate myPlaces];
     
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [UIColor lightGrayColor];
+    self.refreshControl.tintColor = [UIColor blueColor];
+    [self.refreshControl addTarget:self action:@selector(refreshMyPlaces) forControlEvents:UIControlEventValueChanged];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)refreshMyPlaces {
+    // ============================ HEROKU IMPLEMENTATION =========================== //
+    NSString *offersListURL = [NSString stringWithFormat:@"http://punchd.herokuapp.com/offers/"];
+    
+    NSData *offersListData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:offersListURL]];
+    
+    NSError *error;
+    NSArray *jsonOffersList = [NSJSONSerialization
+                               JSONObjectWithData:offersListData
+                               options:kNilOptions
+                               error:&error];
+    _PHPlaces = [[NSMutableArray alloc] initWithCapacity:[jsonOffersList count]];
+    NSLog(@"Number of user's offers: %lu", [jsonOffersList count]);
+    
+    if(error)
+    {
+        NSLog(@"%@", [error localizedDescription]);
+    }
+    else{
+        for(NSDictionary *offer in jsonOffersList)
+        {
+            PHBusiness *next = [[PHBusiness alloc]init];
+            next.offerID = offer[@"id"];
+            next.rewardDescription = offer[@"name"];
+            NSDictionary *business = offer[@"business"];
+            next.businessID = business[@"id"];
+            next.name = business[@"name"];
+            next.address = business[@"address"];
+            next.punchesEarned = offer[@"punch_total"];
+            next.punchesReq = offer[@"punch_total_required"];
+            next.canRedeem = [offer[@"can_redeem"] boolValue];
+            next.redeemed = [offer[@"redeemed"] boolValue];
+            
+            NSLog(@"%@", next.name);
+            [_PHPlaces addObject:next];
+        }
+        
+    }
+    NSLog(@"Done Querying");
+    
+    
+    [self.tableView reloadData];
+    [self.refreshControl endRefreshing];
+    
 }
 
 #pragma mark - Table view data source
@@ -64,6 +115,7 @@
     // Configure the cell...
     cell.businessName.text = _selectedPlace.name;
     cell.address.text = _selectedPlace.address;
+   
     
     return cell;
 }
