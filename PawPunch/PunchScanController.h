@@ -10,7 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <Parse/Parse.h>
 
-@interface SecondViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate, NSURLConnectionDelegate, UIAlertViewDelegate>
+@interface PunchScanController : UIViewController <AVCaptureMetadataOutputObjectsDelegate, NSURLConnectionDelegate, UIAlertViewDelegate>
 {
     NSMutableData *responseData;
 }

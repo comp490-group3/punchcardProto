@@ -36,6 +36,7 @@
     self.delegate = (AppDelegate*) [UIApplication sharedApplication].delegate;
     _PHPlaces = [self.delegate myPlaces];
     
+    //Code that enables and formats "Pull-Down Refresh" functionality
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.backgroundColor = [UIColor lightGrayColor];
     self.refreshControl.tintColor = [UIColor blueColor];
@@ -50,6 +51,7 @@
 
 - (void)refreshMyPlaces {
     // ============================ HEROKU IMPLEMENTATION =========================== //
+    // Queries backend for updated list of User's active offers
     NSString *offersListURL = [NSString stringWithFormat:@"http://punchd.herokuapp.com/offers/"];
     
     NSData *offersListData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:offersListURL]];

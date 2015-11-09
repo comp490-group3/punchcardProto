@@ -58,44 +58,8 @@
     }
     NSLog(@"Done Querying");
     
-    
-    
  // ========================== END HEROKU IMPLEMENTATION ========================= //
- // ============================ PARSE IMPLEMENTATION ============================ //
- /*
-    [Parse setApplicationId:@"Qxi7pgAFaysRDr9Hr9w3lHob18hvYVlRQfLoJ6bn"
-                  clientKey:@"vU0EyATtNS7dFzbnlpsPiXyNHMZMPoXyTySOmAa1"];
-    
-    // [Optional] Track statistics around application opens.
-    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    
-    PFQuery *businessQuery = [PFQuery queryWithClassName:@"Business"];
-    NSArray *busData = [businessQuery findObjects];
-    
-    _myPlaces = [[NSMutableArray alloc] initWithCapacity:[busData count]];
-    
-    for(PFObject *temp in busData)
-    {
-        PHBusiness *next = [[PHBusiness alloc]init];
-        next.objID = temp.objectId;
-        next.name = temp[@"businessName"];
-        next.rewardDescription = temp[@"rewardDescription"];
-        next.punchesReq = temp[@"punchesRequired"];
-        next.punchesEarned = temp[@"punchesEarned"];
-        next.prevCustomer = (BOOL) temp[@"prevCustomer"];
-        next.address = temp[@"Address"];
-        
-        NSLog(@"%@",next.name);
-        [_myPlaces addObject:next];
-        
-    }
-    NSLog(@"Done Querying");
-    
-    
-    return YES;
- */
- // ========================== END PARSE IMPLEMENTATION ========================== //
-    return YES;
+     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Amir Saifi. All rights reserved.
 //
 
-#import "SecondViewController.h"
+#import "PunchScanController.h"
 
-@interface SecondViewController () 
+@interface PunchScanController () 
 
 @property(nonatomic)BOOL isReading;
 @property (nonatomic, strong) AVCaptureSession *captureSession;
@@ -17,16 +17,13 @@
 @property NSString *scannedQRstring;
 @property NSString *offerID;
 
-//@property (nonatomic, strong) NSMutableData *responseData;
-@property PFQuery *query;
-
 -(void)loadBeepSound;
 -(BOOL)startReading;
 -(void)stopReading;
 
 @end
 
-@implementation SecondViewController
+@implementation PunchScanController
 
 
 - (void)viewDidLoad {
@@ -37,7 +34,6 @@
     _scannedQRstring = nil;
     responseData = [NSMutableData data];
     [self loadBeepSound];
-    _query = [PFQuery queryWithClassName:@"Business"];
     
 }
 
@@ -51,7 +47,7 @@
         AVMetadataMachineReadableCodeObject *metadataObj = [metadataObjects objectAtIndex: 0];
         
         //If QR Code is Scanned
-        if([[metadataObj type] isEqualToString:AVMetadataObjectTypeQRCode]){
+        if([[metadataObj type] isEqualToString:AVMetadataObjectTypeQRCode] || [[metadataObj type] isEqualToString:AVMetadataObjectTypeUPCECode]){
             [_labelStatus performSelectorOnMainThread:@selector(setText:) withObject:@"You've punched at..." waitUntilDone:NO];
             
             NSLog(@"%@", [metadataObj stringValue]);
@@ -61,7 +57,6 @@
             _isReading = NO;
             
             [self queryPunchDatabase];
-            //[self performSelectorInBackground:@selector(queryPunchDatabase) withObject:nil];
             
             if(_audioPlayer){
                 [_audioPlayer play];
@@ -135,7 +130,7 @@
             {
                 [_punchProgressBar setProgressTintColor:[UIColor greenColor]];
                 UIAlertView *redeemAlert = [[UIAlertView alloc]initWithTitle:@"Congratulations!"
-                                                                     message:[NSString stringWithFormat:(@"You've reached %@ punches at %@! Would you like to redeem your offer now?"), jsonBusiness[@"name"], _businessLabel.text]
+                                                                     message:[NSString stringWithFormat:(@"You've reached %@ punches at %@! Would you like to redeem your offer now?"), jsonPunch[@"punch_total_required"], _businessLabel.text]
                                                                     delegate:self
                                                            cancelButtonTitle:@"Maybe Later"
                                                            otherButtonTitles:@"Redeem!", nil];
@@ -159,6 +154,7 @@
         NSLog(@"redeem later");
     }else{
         //redeem now pressed
+        //sends GET Request to backend indicating offer is being redeemed
         NSLog(@"attempting to redeem");
         
         NSString *redeemURLstring = [NSString stringWithFormat:@"http://punchd.herokuapp.com/offers/%@/redeem/", _offerID];
@@ -172,6 +168,7 @@
 }
 
 
+// Enables camera on screen to capture QR or UPC-E code -> (UPC-E not yet implemented but is scannable)
 - (BOOL)startReading {
     NSError *error;
     AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -191,7 +188,7 @@
     dispatch_queue_t dispatchQueue;
     dispatchQueue = dispatch_queue_create("myQueue", NULL);
     [captureMetadataOutput setMetadataObjectsDelegate:self queue:dispatchQueue];
-    [captureMetadataOutput setMetadataObjectTypes:[NSArray arrayWithObject:AVMetadataObjectTypeQRCode]];
+    [captureMetadataOutput setMetadataObjectTypes:[NSArray arrayWithObjects:AVMetadataObjectTypeQRCode, AVMetadataObjectTypeUPCECode, nil]];
     
     _videoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];
     [_videoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
@@ -203,12 +200,14 @@
     return YES;
 }
 
+// Closes camera capture
 - (void)stopReading{
     [_captureSession stopRunning];
     _captureSession = nil;
     [_videoPreviewLayer removeFromSuperlayer];
 }
 
+// Plays sound when a code is scanned
 - (void)loadBeepSound{
     NSString *beepFilePath = [[NSBundle mainBundle] pathForResource:@"beep" ofType:@"mp3"];
     NSURL *beepURL = [NSURL URLWithString:beepFilePath];

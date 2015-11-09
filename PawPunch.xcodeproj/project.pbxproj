@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8663104A1BB1C06B00827DFE /* PunchListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 866310491BB1C06B00827DFE /* PunchListController.m */; settings = {ASSET_TAGS = (); }; };
-		8663104D1BB1C30B00827DFE /* PHBusiness.m in Sources */ = {isa = PBXBuildFile; fileRef = 8663104C1BB1C30B00827DFE /* PHBusiness.m */; settings = {ASSET_TAGS = (); }; };
-		866310501BB1CB5300827DFE /* punchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8663104F1BB1CB5300827DFE /* punchCell.m */; settings = {ASSET_TAGS = (); }; };
-		866310531BB378AF00827DFE /* PunchDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 866310521BB378AF00827DFE /* PunchDetailView.m */; settings = {ASSET_TAGS = (); }; };
-		867768D01BAABA53003F7556 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 867768CE1BAABA53003F7556 /* Bolts.framework */; settings = {ASSET_TAGS = (); }; };
-		867768D11BAABA53003F7556 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 867768CF1BAABA53003F7556 /* Parse.framework */; settings = {ASSET_TAGS = (); }; };
+		8663104A1BB1C06B00827DFE /* PunchListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 866310491BB1C06B00827DFE /* PunchListController.m */; };
+		8663104D1BB1C30B00827DFE /* PHBusiness.m in Sources */ = {isa = PBXBuildFile; fileRef = 8663104C1BB1C30B00827DFE /* PHBusiness.m */; };
+		866310501BB1CB5300827DFE /* punchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8663104F1BB1CB5300827DFE /* punchCell.m */; };
+		866310531BB378AF00827DFE /* PunchDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 866310521BB378AF00827DFE /* PunchDetailView.m */; };
+		867768D01BAABA53003F7556 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 867768CE1BAABA53003F7556 /* Bolts.framework */; };
+		867768D11BAABA53003F7556 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 867768CF1BAABA53003F7556 /* Parse.framework */; };
 		867768D31BAABD1D003F7556 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 867768D21BAABD1D003F7556 /* libsqlite3.tbd */; };
 		867768D51BAABD24003F7556 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 867768D41BAABD24003F7556 /* libz.tbd */; };
 		867768DE1BAABD6F003F7556 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 867768D61BAABD6F003F7556 /* AudioToolbox.framework */; };
@@ -25,8 +25,7 @@
 		867768E51BAABD6F003F7556 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 867768DD1BAABD6F003F7556 /* SystemConfiguration.framework */; };
 		86EEF2431BA8B6CA00F0ADDF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EEF2421BA8B6CA00F0ADDF /* main.m */; };
 		86EEF2461BA8B6CA00F0ADDF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EEF2451BA8B6CA00F0ADDF /* AppDelegate.m */; };
-		86EEF2491BA8B6CA00F0ADDF /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EEF2481BA8B6CA00F0ADDF /* FirstViewController.m */; };
-		86EEF24C1BA8B6CA00F0ADDF /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EEF24B1BA8B6CA00F0ADDF /* SecondViewController.m */; };
+		86EEF24C1BA8B6CA00F0ADDF /* PunchScanController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EEF24B1BA8B6CA00F0ADDF /* PunchScanController.m */; };
 		86EEF24F1BA8B6CA00F0ADDF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86EEF24D1BA8B6CA00F0ADDF /* Main.storyboard */; };
 		86EEF2511BA8B6CA00F0ADDF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86EEF2501BA8B6CA00F0ADDF /* Images.xcassets */; };
 		86EEF2541BA8B6CA00F0ADDF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86EEF2521BA8B6CA00F0ADDF /* LaunchScreen.xib */; };
@@ -70,10 +69,8 @@
 		86EEF2421BA8B6CA00F0ADDF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		86EEF2441BA8B6CA00F0ADDF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		86EEF2451BA8B6CA00F0ADDF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		86EEF2471BA8B6CA00F0ADDF /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		86EEF2481BA8B6CA00F0ADDF /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		86EEF24A1BA8B6CA00F0ADDF /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		86EEF24B1BA8B6CA00F0ADDF /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		86EEF24A1BA8B6CA00F0ADDF /* PunchScanController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PunchScanController.h; sourceTree = "<group>"; };
+		86EEF24B1BA8B6CA00F0ADDF /* PunchScanController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PunchScanController.m; sourceTree = "<group>"; };
 		86EEF24E1BA8B6CA00F0ADDF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		86EEF2501BA8B6CA00F0ADDF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		86EEF2531BA8B6CA00F0ADDF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -140,10 +137,8 @@
 				86EEF2451BA8B6CA00F0ADDF /* AppDelegate.m */,
 				8663104B1BB1C30B00827DFE /* PHBusiness.h */,
 				8663104C1BB1C30B00827DFE /* PHBusiness.m */,
-				86EEF2471BA8B6CA00F0ADDF /* FirstViewController.h */,
-				86EEF2481BA8B6CA00F0ADDF /* FirstViewController.m */,
-				86EEF24A1BA8B6CA00F0ADDF /* SecondViewController.h */,
-				86EEF24B1BA8B6CA00F0ADDF /* SecondViewController.m */,
+				86EEF24A1BA8B6CA00F0ADDF /* PunchScanController.h */,
+				86EEF24B1BA8B6CA00F0ADDF /* PunchScanController.m */,
 				8663104E1BB1CB5300827DFE /* punchCell.h */,
 				8663104F1BB1CB5300827DFE /* punchCell.m */,
 				866310481BB1C06B00827DFE /* PunchListController.h */,
@@ -299,9 +294,8 @@
 			files = (
 				866310531BB378AF00827DFE /* PunchDetailView.m in Sources */,
 				866310501BB1CB5300827DFE /* punchCell.m in Sources */,
-				86EEF24C1BA8B6CA00F0ADDF /* SecondViewController.m in Sources */,
+				86EEF24C1BA8B6CA00F0ADDF /* PunchScanController.m in Sources */,
 				86EEF2461BA8B6CA00F0ADDF /* AppDelegate.m in Sources */,
-				86EEF2491BA8B6CA00F0ADDF /* FirstViewController.m in Sources */,
 				86EEF2431BA8B6CA00F0ADDF /* main.m in Sources */,
 				8663104A1BB1C06B00827DFE /* PunchListController.m in Sources */,
 				8663104D1BB1C30B00827DFE /* PHBusiness.m in Sources */,
